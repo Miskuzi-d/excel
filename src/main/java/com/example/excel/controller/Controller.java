@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 public class Controller {
@@ -18,18 +17,11 @@ public class Controller {
     @Value(value = "${masiv.paths}")
     private String[] paths;
 
-    @GetMapping("/firstTask")
-    public Map<String, Integer> firstResult(){
-           return mapBuilder.FirstResult(paths);
-    }
+    @Value(value = "${keys_set}")
+    private String[] keys;
 
-    @GetMapping("/secondTask")
-    public Map<String, Integer> secondResult(){
-        return mapBuilder.SecondResult(paths);
-    }
-
-    @GetMapping("/thirdTask")
-    public Map<String, ArrayList<Integer>> thirdTask(){
-            return mapBuilder.ThirdResult(paths);
+    @GetMapping("/")
+    public List<Object> result() throws Exception {
+        return mapBuilder.getReport(paths, keys);
     }
 }
